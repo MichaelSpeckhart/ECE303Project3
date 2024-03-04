@@ -1,18 +1,20 @@
-#include <stdio.h>
-#include <math.h>
-#include <iostream>
-#include <fstream>
-#include <cstdint>
-#include <string>
+#include "files.h"
+#include "timer.h"
 
-void read_values_from_file(const char * file, float * data, size_t size) {
-    std::ifstream values(file, std::ios::binary);
-    values.read(reinterpret_cast<char*>(data), size);
-    values.close();
+//the first step is to read in the MINST data set
+int main(){
+    
 }
-
-void write_values_to_file(const char * file, float * data, size_t size) {
-    std::ofstream values(file, std::ios::binary);
-    values.write(reinterpret_cast<char*>(data), size);
-    values.close();
-}
+// for (blurrow = -BLUR_SIZE to BLUR_SIZE){
+//     for (blurcol = -BLUR_SIZE to BLUR_SIZE){
+//     currow = row + blurrow;
+//     curcol = col + blurcol;
+//     // take care of the image edge and ensure valid image pixel
+//     if (currow > -1 && currow < height && curcol > -1 && curcol < width){
+//         pixVal += inputImage[currow * width + curcol];
+//         pixels++; // number of pixels added
+//         }
+//     }
+// }
+// // Write the new pixel value in outImage
+// outImage[row * width + col] = (variable type)(pixVal / pixels);
