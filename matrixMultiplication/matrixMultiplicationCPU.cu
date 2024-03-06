@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const size_t MATRIX_SIZE = 100;
+const size_t MATRIX_SIZE = 500;
 
 int main(){
     //random num generator
