@@ -50,13 +50,13 @@ int main(){
     unsigned char* hostBuf = (unsigned char*)malloc(bytes);
 
     // Allocate memory for input and output images
-    unsigned char (*inImage)[IMAGE_SIZE][IMAGE_SIZE] = (unsigned char (*)[IMAGE_SIZE][IMAGE_SIZE])hostBuf;
+    unsigned char (*hostImage)[IMAGE_SIZE][IMAGE_SIZE] = (unsigned char (*)[IMAGE_SIZE][IMAGE_SIZE])hostBuf;
     
-    read_values_from_file("data/data3.txt", inImage,NUMBER_IMAGES);
+    read_values_from_file("data/data3.txt", hostImage,NUMBER_IMAGES);
     for(size_t x = 0 ; x < 1;x++){
         for(size_t i = 0; i < IMAGE_SIZE;i++){
             for(size_t j = 0; j<IMAGE_SIZE;j++){
-                std::cout << std::setw(3) << static_cast<int>(inImage[0][i][j]) << " ";
+                std::cout << std::setw(3) << static_cast<int>(hostImage[0][i][j]) << " ";
             }
             std::cout << std::endl;
         }
@@ -94,13 +94,13 @@ int main(){
     for(size_t x = 0 ; x < 1;x++){
         for(size_t i = 0; i < IMAGE_SIZE;i++){
             for(size_t j = 0; j<IMAGE_SIZE;j++){
-                std::cout << std::setw(3) << static_cast<int>(inImage[0][i][j]) << " ";
+                std::cout << std::setw(3) << static_cast<int>(hostImage[0][i][j]) << " ";
             }
             std::cout << std::endl;
         }
         std::cout << std::endl;
     }
-    write_values_to_file("dataOut/data3.txt", inImage,NUMBER_IMAGES);
+    write_values_to_file("dataOut/data3.txt", hostImage,NUMBER_IMAGES);
     free(hostBuf);
     //CUDA FREE
     cudaFree( device_in_buffer );
