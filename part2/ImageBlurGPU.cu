@@ -84,13 +84,12 @@ int main(){
     StartTimer();
     for (size_t blur = 0; blur < NUM_BLUR; blur++) {
         blur_kernel<<<number_of_blocks, threads_per_block>>>(device_in_buffer, device_out_buffer);
-        cudaDeviceSynchronize();
         unsigned char *temp = device_in_buffer;
         device_in_buffer = device_out_buffer;
         device_out_buffer = temp;
     }
     std::cout << GetTimer()/NUMBER_IMAGES/NUM_BLUR << " ms per image average" << std::endl;
-    cudaMemcpy(hostBuf, device_out_buffer, bytes, cudaMemcpyDeviceToHost);
+    cudaMemcpy(hostBuf, device_in_buffer, bytes, cudaMemcpyDeviceToHost);
 
     for(size_t x = 0 ; x < 1;x++){
         for(size_t i = 0; i < IMAGE_SIZE;i++){
