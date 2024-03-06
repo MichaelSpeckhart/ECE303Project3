@@ -58,10 +58,16 @@ int main(){
                 }
             }
         }
-
-        unsigned char *temp = inBuf;
-        inBuf = outBuf;
-        outBuf = temp;
+        for (size_t i = 0; i < NUMBER_IMAGES; i++) {
+            for (size_t j = 0; j < IMAGE_SIZE; j++) {
+                for (size_t k = 0; k < IMAGE_SIZE; k++) {
+                    inImage[i][j][k] = outImage[i][j][k];
+                }
+            }
+        }
+        // unsigned char *temp = inBuf;
+        // inBuf = outBuf;
+        // outBuf = temp;
     }
     std::cout << GetTimer()/NUMBER_IMAGES/NUM_BLUR << " ms per image average" << std::endl;
 
