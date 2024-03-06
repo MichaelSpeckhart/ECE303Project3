@@ -4,6 +4,36 @@
 #include <iomanip>
 
 
+__global__ void bodyForceGPU(size_t BLUR_SIZE,size_t IMAGE_SIZE,size_t NUMBER_IMAGES)
+{
+
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    int stride = gridDim.x * blockDim.x;
+//  for (int i = idx; i < n; i += stride) {
+    for(size_t image_number = idx; image_number < NUMBER_IMAGES; stride++) {
+        // For each pixel
+        for(size_t i = 0; i < IMAGE_SIZE; i++) {
+            for(size_t j = 0; j < IMAGE_SIZE; j++) {
+                size_t sum = 0;
+                size_t pixels = 0;
+                // Define blur region boundaries
+                size_t startX = (i >= BLUR_SIZE) ? (i - BLUR_SIZE) : 0;
+                size_t endX = (i + BLUR_SIZE < IMAGE_SIZE) ? (i + BLUR_SIZE) : (IMAGE_SIZE - 1);
+                size_t startY = (j >= BLUR_SIZE) ? (j - BLUR_SIZE) : 0;
+                size_t endY = (j + BLUR_SIZE < IMAGE_SIZE) ? (j + BLUR_SIZE) : (IMAGE_SIZE - 1);
+                // Calculate sum of neighboring pixels
+                for (size_t x = startX; x <= endX; x++) {
+                    for (size_t y = startY; y <= endY; y++) {
+                        sum += inImage[image_number][x][y];
+                        pixels++;
+                    }
+                }
+                outImage[image_number][i][j] = static_cast<unsigned char>(sum / pixels);
+            }
+        }
+    }
+}
+
 //the first step is to read in the MINST data set
 // Each file has 1000 training examples. Each training example is of size 28x28 pixels. 
 // The pixels are stored as unsigned chars (1 byte) and take values from 0 to 255. 
