@@ -4,7 +4,7 @@
 #include <iomanip>
 
 
-__global__ void bodyForceGPU(size_t BLUR_SIZE,size_t IMAGE_SIZE,size_t NUMBER_IMAGES)
+__global__ void blur_kernel(size_t BLUR_SIZE,size_t IMAGE_SIZE,size_t NUMBER_IMAGES)
 {
 
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -58,29 +58,9 @@ int main(){
     //for each input image
     StartTimer();
     for(size_t many = 0; many <10;many++){
-        for(size_t image_number = 0; image_number < NUMBER_IMAGES; image_number++) {
-            // For each pixel
-            for(size_t i = 0; i < IMAGE_SIZE; i++) {
-                for(size_t j = 0; j < IMAGE_SIZE; j++) {
-                    size_t sum = 0;
-                    size_t pixels = 0;
-                    // Define blur region boundaries
-                    size_t startX = (i >= BLUR_SIZE) ? (i - BLUR_SIZE) : 0;
-                    size_t endX = (i + BLUR_SIZE < IMAGE_SIZE) ? (i + BLUR_SIZE) : (IMAGE_SIZE - 1);
-                    size_t startY = (j >= BLUR_SIZE) ? (j - BLUR_SIZE) : 0;
-                    size_t endY = (j + BLUR_SIZE < IMAGE_SIZE) ? (j + BLUR_SIZE) : (IMAGE_SIZE - 1);
+        //call my kernel here
 
-                    // Calculate sum of neighboring pixels
-                    for (size_t x = startX; x <= endX; x++) {
-                        for (size_t y = startY; y <= endY; y++) {
-                            sum += inImage[image_number][x][y];
-                            pixels++;
-                        }
-                    }
-                    outImage[image_number][i][j] = static_cast<unsigned char>(sum / pixels);
-                }
-            }
-        }
+        
         // Copy outImage to inImage
         for (size_t i = 0; i < NUMBER_IMAGES; i++) {
             for (size_t j = 0; j < IMAGE_SIZE; j++) {

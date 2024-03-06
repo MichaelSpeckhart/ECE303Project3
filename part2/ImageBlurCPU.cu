@@ -3,17 +3,23 @@
 #include <iostream>
 #include <iomanip>
 
-
+const size_t BLUR_SIZE = 1;
+const size_t IMAGE_SIZE = 28;
+const size_t NUMBER_IMAGES = 1000;
 //the first step is to read in the MINST data set
 // Each file has 1000 training examples. Each training example is of size 28x28 pixels. 
 // The pixels are stored as unsigned chars (1 byte) and take values from 0 to 255. 
 // The first 28x28 bytes of the file correspond to the first training example, the next 28x28 bytes correspond to the next example and so on.
 int main(){
-    const size_t BLUR_SIZE = 1;
-    const size_t IMAGE_SIZE = 28;
-    const size_t NUMBER_IMAGES = 1000;
-    unsigned char inImage[NUMBER_IMAGES][IMAGE_SIZE][IMAGE_SIZE];
-    
+
+    // Allocate memory for input and output buffers
+    unsigned char* inBuf = (unsigned char*)malloc(NUMBER_IMAGES * IMAGE_SIZE * IMAGE_SIZE * sizeof(unsigned char));
+    unsigned char* outBuf = (unsigned char*)malloc(NUMBER_IMAGES * IMAGE_SIZE * IMAGE_SIZE * sizeof(unsigned char));
+
+    // Allocate memory for input and output images
+    unsigned char (*inImage)[IMAGE_SIZE][IMAGE_SIZE] = (unsigned char (*)[IMAGE_SIZE][IMAGE_SIZE])inBuf;
+    unsigned char (*outImage)[IMAGE_SIZE][IMAGE_SIZE] = (unsigned char (*)[IMAGE_SIZE][IMAGE_SIZE])outBuf;
+
     read_values_from_file("data/data3.txt", inImage,NUMBER_IMAGES);
     for(size_t x = 0 ; x < 1;x++){
         for(size_t i = 0; i < IMAGE_SIZE;i++){
@@ -24,7 +30,7 @@ int main(){
         }
         std::cout << std::endl;
     }
-    unsigned char outImage[NUMBER_IMAGES][IMAGE_SIZE][IMAGE_SIZE];
+    
     //for each input image
     StartTimer();
     for(size_t many = 0; many <10;many++){
@@ -72,5 +78,7 @@ int main(){
         std::cout << std::endl;
     }
     write_values_to_file("dataOut/data3.txt", outImage,NUMBER_IMAGES);
+    free(inBuf);
+    free(outBuf);
     return 0;
 }
