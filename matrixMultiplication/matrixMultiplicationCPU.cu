@@ -1,3 +1,9 @@
+/*
+Luke Hale and Michael Speckhart
+Project #3
+Part #2.7
+3/8/2024
+*/
 #include "timer.h"
 #include <iostream>
 #include <iomanip>
