@@ -65,9 +65,6 @@ int main(){
                 }
             }
         }
-        // unsigned char *temp = inBuf;
-        // inBuf = outBuf;
-        // outBuf = temp;
     }
     std::cout << GetTimer()/NUMBER_IMAGES/NUM_BLUR << " ms per image average" << std::endl;
 
@@ -80,7 +77,7 @@ int main(){
         }
         std::cout << std::endl;
     }
-    write_values_to_file("dataOut/data3.txt", outImage,NUMBER_IMAGES);
+    write_values_to_file("dataOut/data3CPU.txt", outImage,NUMBER_IMAGES);
     free(inBuf);
     free(outBuf);
     return 0;
