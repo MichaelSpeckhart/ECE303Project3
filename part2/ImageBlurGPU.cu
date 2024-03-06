@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 const size_t BLUR_SIZE = 1;
+const size_t NUM_BLUR = 10;
 const size_t IMAGE_SIZE = 28;
 const size_t NUMBER_IMAGES = 1000;
 
@@ -81,14 +82,14 @@ int main(){
     cudaMemcpy(device_in_buffer, hostBuf, bytes, cudaMemcpyHostToDevice);
     //for each input image
     StartTimer();
-    for (size_t blur = 0; blur < 10; blur++) {
+    for (size_t blur = 0; blur < NUM_BLUR; blur++) {
         blur_kernel<<<number_of_blocks, threads_per_block>>>(device_in_buffer, device_out_buffer);
         cudaDeviceSynchronize();
         unsigned char *temp = device_in_buffer;
         device_in_buffer = device_out_buffer;
         device_out_buffer = temp;
     }
-    std::cout << GetTimer()/NUMBER_IMAGES/10 << " ms per image average" << std::endl;
+    std::cout << GetTimer()/NUMBER_IMAGES/NUM_BLUR << " ms per image average" << std::endl;
     cudaMemcpy(hostBuf, device_out_buffer, bytes, cudaMemcpyDeviceToHost);
 
     for(size_t x = 0 ; x < 1;x++){

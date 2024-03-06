@@ -4,6 +4,7 @@
 #include <iomanip>
 
 const size_t BLUR_SIZE = 1;
+const size_t NUM_BLUR = 10;
 const size_t IMAGE_SIZE = 28;
 const size_t NUMBER_IMAGES = 1000;
 //the first step is to read in the MINST data set
@@ -33,7 +34,7 @@ int main(){
     
     //for each input image
     StartTimer();
-    for(size_t many = 0; many <10;many++){
+    for(size_t blur = 0; blur <NUM_BLUR;blur++){
         for(size_t image_number = 0; image_number < NUMBER_IMAGES; image_number++) {
             // For each pixel
             for(size_t i = 0; i < IMAGE_SIZE; i++) {
@@ -57,16 +58,12 @@ int main(){
                 }
             }
         }
-        // Copy outImage to inImage
-        for (size_t i = 0; i < NUMBER_IMAGES; i++) {
-            for (size_t j = 0; j < IMAGE_SIZE; j++) {
-                for (size_t k = 0; k < IMAGE_SIZE; k++) {
-                    inImage[i][j][k] = outImage[i][j][k];
-                }
-            }
-        }
+
+        unsigned char *temp = inBuf;
+        inBuf = outBuf;
+        outBuf = temp;
     }
-    std::cout << GetTimer()/NUMBER_IMAGES/10 << " ms per image average" << std::endl;
+    std::cout << GetTimer()/NUMBER_IMAGES/NUM_BLUR << " ms per image average" << std::endl;
 
     for(size_t x = 0 ; x < 1;x++){
         for(size_t i = 0; i < IMAGE_SIZE;i++){
