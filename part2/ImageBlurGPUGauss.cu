@@ -116,7 +116,7 @@ int main(){
         }
         std::cout << std::endl;
     }
-    write_values_to_file("dataOut/data3GPU.txt", hostImage,NUMBER_IMAGES);
+    write_values_to_file("dataOut/data3GPUGauss.txt", hostImage,NUMBER_IMAGES);
     free(hostBuf);
     //CUDA FREE
     cudaFree( device_in_buffer );
