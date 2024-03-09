@@ -92,7 +92,7 @@ int main(){
         }
         std::cout << std::endl;
     }
-    write_values_to_file("dataOut/data3CPU.txt", outImage,NUMBER_IMAGES);
+    write_values_to_file("dataOut/data3CPUGauss.txt", outImage,NUMBER_IMAGES);
     free(inBuf);
     free(outBuf);
     return 0;
