@@ -1,3 +1,9 @@
+/*
+Luke Hale and Michael Speckhart
+Project #3
+Part #2.6
+3/8/2024
+*/
 #include <iostream>
 #include <cmath>
 #include <iomanip>

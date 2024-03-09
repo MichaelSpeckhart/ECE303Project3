@@ -1,3 +1,9 @@
+/*
+Luke Hale and Michael Speckhart
+Project #3
+Part #1
+3/8/2024
+*/
 #include <stdio.h>
 #include <math.h>
 

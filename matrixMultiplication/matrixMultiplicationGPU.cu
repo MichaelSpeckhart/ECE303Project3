@@ -11,7 +11,7 @@ Part #2.7
 
 using namespace std;
 
-const size_t MATRIX_SIZE = 100;
+const size_t MATRIX_SIZE = 1000;
 
 __global__ void mult_matrix_kernel(double* m1Buf,double* m2Buf,double* m3Buf)
 {
@@ -69,7 +69,7 @@ int main(){
     cudaMemcpy(m2BufDevice, m2Buf, bytes, cudaMemcpyHostToDevice);
 
     //double (*m3)[MATRIX_SIZE] = (double (*)[MATRIX_SIZE])m3Buf;
-    int threads_per_block = 512;
+    int threads_per_block = 4;
     int deviceId;
     cudaGetDevice(&deviceId);
   
